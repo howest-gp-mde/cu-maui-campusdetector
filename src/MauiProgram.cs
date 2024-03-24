@@ -30,8 +30,6 @@ namespace Mde.CampusDetector
             builder.Services.AddSingleton<HttpClient>();
             builder.Services.AddTransient<ICampusService, CampusService>();
 
-            builder.Services.AddTransient<IGeolocation>((provider) => Geolocation.Default);
-
             return builder.Build();
         }
     }
