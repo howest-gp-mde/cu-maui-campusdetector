@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Mde.CampusDetector.Core.Alerts;
+using Mde.CampusDetector.Core.AppPermissions;
 using Mde.CampusDetector.Core.Campuses;
 using Mde.CampusDetector.Core.Campuses.Models;
 using Mde.CampusDetector.Core.Campuses.Services;
@@ -13,17 +14,18 @@ namespace Mde.CampusDetector.ViewModels
         private readonly ICampusService campusService;
         private readonly IDialogService dialogService;
         private readonly IGeolocation geolocation;
-
+        private readonly IHandlePermissions permissionsHandler;
         public const string NoPermissionTitle = "Location unavailable";
         public const string NoPermissionMessage = "To allow distance measurement, please allow the app to request your locations information";
         public const string YouAreCloseMessage = "You are close to {0}";
         public const string ErrorTitle = "Error";
 
-        public MainViewModel(ICampusService campusService, IDialogService dialogService, IGeolocation geolocation)
+        public MainViewModel(ICampusService campusService, IDialogService dialogService, IGeolocation geolocation, IHandlePermissions permissionsHandler)
         {
             this.campusService = campusService;
             this.dialogService = dialogService;
             this.geolocation = geolocation;
+            this.permissionsHandler = permissionsHandler;
 
             AppearingCommand = new Command(OnAppearing);
             DisappearingCommand = new Command(OnDisappearing);
@@ -110,11 +112,8 @@ namespace Mde.CampusDetector.ViewModels
                 Campuses = new ObservableCollection<Campus>(campuses);
 
                 //check if location permission is granted
-                bool hasPermission = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>() == PermissionStatus.Granted;
-                if (!hasPermission)
-                {
-                    hasPermission = await Permissions.RequestAsync<Permissions.LocationWhenInUse>() == PermissionStatus.Granted;
-                }
+                bool hasPermission = await permissionsHandler
+                        .RequestIfNotGrantedAsync<Permissions.LocationWhenInUse>() == PermissionStatus.Granted;
 
                 if (hasPermission)
                 {
@@ -130,7 +129,7 @@ namespace Mde.CampusDetector.ViewModels
                         hasPermission = false;
                     }
                 }
-                if(!hasPermission)
+                else
                 {
                     await dialogService.ShowAlert(NoPermissionTitle, NoPermissionMessage, "I understand");
                 }
