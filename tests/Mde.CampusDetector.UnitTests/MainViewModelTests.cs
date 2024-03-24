@@ -64,5 +64,27 @@ namespace Mde.CampusDetector.UnitTests
             Assert.False(viewModel.IsLoading);
         }
 
+
+        [Fact]
+        public void AppearingCommand_DuringLoadingCampuses_IsLoadingTrue()
+        {
+            // Arrange
+            var viewModel = new MainViewModel(_mockCampusService.Object,
+                                              _mockDialogService.Object,
+                                              _mockGeoLocation.Object,
+                                              _mockPermissionsHandler.Object);
+            bool isLoading = false;
+
+            _mockCampusService.Setup(mock => mock.GetAllCampuses())
+                .Callback(() => isLoading = viewModel.IsLoading)
+                .Returns(() => Task.FromResult((IEnumerable<Campus>)[]));
+
+            //act   
+            viewModel.AppearingCommand.Execute(null);
+
+            //assert
+            Assert.True(isLoading);
+        }
+
     }
 }
