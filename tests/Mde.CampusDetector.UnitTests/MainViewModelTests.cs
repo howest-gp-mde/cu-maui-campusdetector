@@ -121,7 +121,6 @@ namespace Mde.CampusDetector.UnitTests
                                       Times.Once);
         }
 
-
         [Fact]
         public void HandleLocation_ComingInRange_DisplaysToast()
         {
@@ -156,6 +155,36 @@ namespace Mde.CampusDetector.UnitTests
             // assert
             _mockDialogService.Verify(mock => mock.ShowToast(expectedMessage), Times.Once);
         }
+
+
+        [Fact]
+        public void SelectedCampus_Changed_HandleLocation()
+        {
+            // Arrange
+            var newCampus = new Campus
+            {
+                Name = "Test Campus",
+                Latitude = 0,
+                Longitude = 0,
+                PhotoUrl = string.Empty
+            };
+
+            // wrap a REAL ViewModel in a mock, so we can verify the HandleLocation method call
+            var mockViewModel = new Mock<MainViewModel>(() =>
+                    new MainViewModel(_mockCampusService.Object,
+                                      _mockDialogService.Object,
+                                      _mockGeoLocation.Object,
+                                      _mockPermissionsHandler.Object));
+
+            var viewModel = mockViewModel.Object;
+
+            // Act   
+            viewModel.SelectedCampus = newCampus;
+
+            // assert
+            mockViewModel.Verify(mock => mock.HandleLocation(), Times.Once);
+        }
+
 
     }
 }
