@@ -2,6 +2,7 @@ using Mde.CampusDetector.Core.Alerts;
 using Mde.CampusDetector.Core.AppPermissions;
 using Mde.CampusDetector.Core.Campuses.Models;
 using Mde.CampusDetector.Core.Campuses.Services;
+using Mde.CampusDetector.ViewModels;
 using Moq;
 
 namespace Mde.CampusDetector.UnitTests
@@ -45,6 +46,22 @@ namespace Mde.CampusDetector.UnitTests
             _mockDialogService.Setup(mock => mock
                     .ShowAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                     .Returns(() => Task.CompletedTask);
+        }
+
+        [Fact]
+        public void AppearingCommand_WhenDone_IsLoadingFalse()
+        {
+            // Arrange
+            var viewModel = new MainViewModel(_mockCampusService.Object,
+                                              _mockDialogService.Object,
+                                              _mockGeoLocation.Object,
+                                              _mockPermissionsHandler.Object);
+
+            //act   
+            viewModel.AppearingCommand.Execute(null);
+
+            //assert
+            Assert.False(viewModel.IsLoading);
         }
 
     }
