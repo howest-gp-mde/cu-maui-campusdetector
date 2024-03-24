@@ -12,16 +12,19 @@ namespace Mde.CampusDetector.ViewModels
     {
         private readonly ICampusService campusService;
         private readonly IDialogService dialogService;
+        private readonly IGeolocation geolocation;
 
         public const string NoPermissionTitle = "Location unavailable";
         public const string NoPermissionMessage = "To allow distance measurement, please allow the app to request your locations information";
         public const string YouAreCloseMessage = "You are close to {0}";
         public const string ErrorTitle = "Error";
 
-        public MainViewModel(ICampusService campusService, IDialogService dialogService)
+        public MainViewModel(ICampusService campusService, IDialogService dialogService, IGeolocation geolocation)
         {
             this.campusService = campusService;
             this.dialogService = dialogService;
+            this.geolocation = geolocation;
+
             AppearingCommand = new Command(OnAppearing);
             DisappearingCommand = new Command(OnDisappearing);
         }
@@ -118,9 +121,9 @@ namespace Mde.CampusDetector.ViewModels
                     try
                     {
                         //start listening to location changes
-                        Geolocation.LocationChanged += OnLocationChanged;
+                        geolocation.LocationChanged += OnLocationChanged;
                         var request = new GeolocationListeningRequest(GeolocationAccuracy.Medium);
-                        await Geolocation.StartListeningForegroundAsync(request);
+                        await geolocation.StartListeningForegroundAsync(request);
                     }
                     catch (Exception)
                     {
@@ -144,8 +147,8 @@ namespace Mde.CampusDetector.ViewModels
 
         private void OnDisappearing()
         {
-            Geolocation.StopListeningForeground();
-            Geolocation.LocationChanged -= OnLocationChanged;
+            geolocation.StopListeningForeground();
+            geolocation.LocationChanged -= OnLocationChanged;
         }
 
     }
