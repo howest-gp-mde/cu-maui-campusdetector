@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Mde.CampusDetector.Core.Alerts;
 using Mde.CampusDetector.Core.Campuses;
 using Mde.CampusDetector.Core.Campuses.Models;
 using Mde.CampusDetector.Core.Campuses.Services;
@@ -10,16 +11,17 @@ namespace Mde.CampusDetector.ViewModels
     public class MainViewModel : ObservableObject
     {
         private readonly ICampusService campusService;
+        private readonly IDialogService dialogService;
 
         public const string NoPermissionTitle = "Location unavailable";
         public const string NoPermissionMessage = "To allow distance measurement, please allow the app to request your locations information";
         public const string YouAreCloseMessage = "You are close to {0}";
         public const string ErrorTitle = "Error";
 
-        public MainViewModel(ICampusService campusService)
+        public MainViewModel(ICampusService campusService, IDialogService dialogService)
         {
             this.campusService = campusService;
-
+            this.dialogService = dialogService;
             AppearingCommand = new Command(OnAppearing);
             DisappearingCommand = new Command(OnDisappearing);
         }
@@ -72,7 +74,7 @@ namespace Mde.CampusDetector.ViewModels
             }
         }
 
-        public virtual void HandleLocation()
+        public async virtual void HandleLocation()
         {
             if (selectedCampus != null && LastLocation != null)
             {
@@ -83,7 +85,7 @@ namespace Mde.CampusDetector.ViewModels
 
                 if(selectedCampusDistance <= AppConstants.Ranges.CloseRange && lastDistance > AppConstants.Ranges.CloseRange)
                 {
-                    Toast.Make(string.Format(YouAreCloseMessage, selectedCampus.Name)).Show();
+                    await dialogService.ShowToast(string.Format(YouAreCloseMessage, selectedCampus.Name));
                 }
             }
         }
@@ -127,12 +129,12 @@ namespace Mde.CampusDetector.ViewModels
                 }
                 if(!hasPermission)
                 {
-                    await Application.Current.MainPage.DisplayAlert(NoPermissionTitle, NoPermissionMessage, "I understand");
+                    await dialogService.ShowAlert(NoPermissionTitle, NoPermissionMessage, "I understand");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ErrorTitle, ex.Message, "Ok");
+                await dialogService.ShowAlert(ErrorTitle, ex.Message, "Ok");
             }
             finally
             {
