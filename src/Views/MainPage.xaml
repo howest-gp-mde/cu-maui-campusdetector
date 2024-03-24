@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Mde.CampusDetector.ViewModels"
+             xmlns:campusmodels="clr-namespace:Mde.CampusDetector.Core.Campuses.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Mde.CampusDetector.Views.MainPage"
+             x:DataType="viewmodels:MainViewModel"
+             Title="Howest Campuses"
+             >
+    <ScrollView>
+        <Grid>
+            <ActivityIndicator 
+                ZIndex="100" IsRunning="{Binding IsLoading}" MaximumWidthRequest="100" />
+
+            <Grid RowDefinitions="Auto,*"
+                  Padding="20,5"
+                  IsVisible="{Binding IsLoading, Converter={toolkit:InvertedBoolConverter}}">
+
+                <Picker Grid.Row="0" 
+                        AutomationId="campusPicker"
+                        Title="Select a campus"
+                        ItemsSource="{Binding Campuses}"
+                        ItemDisplayBinding="{Binding Name }"
+                        SelectedItem="{Binding SelectedCampus}">
+                </Picker>
+
+                <Border StrokeShape="RoundRectangle 20"
+                        Grid.Row="1"
+                        VerticalOptions="Start"
+                        MaximumWidthRequest="700"
+                        IsVisible="{Binding IsCampusSelected}"
+                        Background="{AppThemeBinding Light={x:StaticResource White}, Dark={x:StaticResource Gray600}}"
+                        Margin="0,50,0,0" Padding="20,20,20,50">
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Radius="20" Opacity="0.35" Offset="7,7" />
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="30">
+                        <Label Text="{Binding SelectedCampus.Name}"
+                               MaxLines="2"
+                               FontSize="28"
+                               HorizontalTextAlignment="Center" />
+                        <Border StrokeShape="RoundRectangle 125" 
+                                HeightRequest="250" WidthRequest="250">
+                            <Grid>
+                                <Image Aspect="AspectFill" Source="{Binding SelectedCampus.PhotoUrl}" />
+                            </Grid>
+                        </Border>
+                        <Label HorizontalTextAlignment="Center"
+                               AutomationId="campusDistance">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span FontSize="60" Text="{Binding SelectedCampusDistance, Converter={x:StaticResource KilometerToString}}" />
+                                    <Span FontSize="30" Text=" " />
+                                    <Span FontSize="30" Text="{Binding SelectedCampusDistance, Converter={x:StaticResource DistanceToUnit}}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+            
+        </Grid>
+    </ScrollView>
+</ContentPage>

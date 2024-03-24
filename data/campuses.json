@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "coordinates": [ 51.19464896421396, 3.217077612665776 ],
+    "description": "Campus Brugge Station - Building A",
+    "image": "howest-campus-brugge-station-a.jpg"
+  },
+  {
+    "id": 2,
+    "coordinates": [ 51.19468126718627, 3.2165105726738847 ],
+    "description": "Campus Brugge Station - Buildings C & D",
+    "image": "howest-campus-brugge-station-cd.jpg"
+  },
+  {
+    "id": 3,
+    "coordinates": [ 51.19232142113973, 3.213699298621804 ],
+    "description": "Campus Brugge Station - Building J",
+    "image": "howest-campus-brugge-station-j.jpg"
+  },
+  {
+    "id": 4,
+    "coordinates": [ 51.20624445498109, 3.241597950407898 ],
+    "description": "Campus Bruges - Sports innovation",
+    "image": "howest-sportinnovatiecampus.jpg"
+  },
+  {
+    "id": 5,
+    "coordinates": [ 51.19315319496819, 3.214520899377982 ],
+    "description": "Campus Bruges Station - The Lodge",
+    "image": "howest-campus-brugge-station-thelodge.jpg"
+  },
+  {
+    "id": 6,
+    "coordinates": [ 51.21527308398315, 3.2211176788305527 ],
+    "description": "Campus Bruges Centre - Howest College",
+    "image": "howest-campus-brugge-centrum-college.jpg"
+  },
+  {
+    "id": 7,
+    "coordinates": [ 50.82476862014296, 3.2496758555983147 ],
+    "description": "Campus Kortrijk Weide - Building A",
+    "image": "howest-campus-kortrijk-weide-a.jpg"
+  },
+  {
+    "id": 8,
+    "coordinates": [ 50.8242966293589, 3.2510930985916375 ],
+    "description": "Campus Kortrijk Weide - The Penta",
+    "image": "howest-campus-kortrijk-weide-thepenta.jpg"
+  },
+  {
+    "id": 9,
+    "coordinates": [ 50.82765756246007, 3.254443187436345 ],
+    "description": "Campus Kortrijk Weide - The Level",
+    "image": "howest-campus-kortrijk-weide-thelevel.jpg"
+  }
+]
