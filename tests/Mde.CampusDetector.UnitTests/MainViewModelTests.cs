@@ -1,5 +1,6 @@
 using Mde.CampusDetector.Core.Alerts;
 using Mde.CampusDetector.Core.AppPermissions;
+using Mde.CampusDetector.Core.Campuses;
 using Mde.CampusDetector.Core.Campuses.Models;
 using Mde.CampusDetector.Core.Campuses.Services;
 using Mde.CampusDetector.ViewModels;
@@ -120,6 +121,41 @@ namespace Mde.CampusDetector.UnitTests
                                       Times.Once);
         }
 
+
+        [Fact]
+        public void HandleLocation_ComingInRange_DisplaysToast()
+        {
+            // Arrange
+            var lastLocationMock = new Mock<Location>();
+            double currentDistanceFromCampus = AppConstants.Ranges.CloseRange + 1;
+
+            var newLocation = new Location { Latitude = 0, Longitude = 0 };
+            var campus = new Campus
+            {
+                Name = "Test Campus",
+                Latitude = 0,
+                Longitude = 0,
+                PhotoUrl = string.Empty
+            };
+
+
+            var viewModel = new MainViewModel(_mockCampusService.Object,
+                                              _mockDialogService.Object,
+                                              _mockGeoLocation.Object,
+                                              _mockPermissionsHandler.Object);
+
+            viewModel.LastLocation = lastLocationMock.Object;
+            viewModel.SelectedCampus = campus;
+            viewModel.SelectedCampusDistance = currentDistanceFromCampus;
+
+            var expectedMessage = string.Format(MainViewModel.YouAreCloseMessage, campus.Name);
+
+            // act
+            viewModel.HandleLocation();
+
+            // assert
+            _mockDialogService.Verify(mock => mock.ShowToast(expectedMessage), Times.Once);
+        }
 
     }
 }
