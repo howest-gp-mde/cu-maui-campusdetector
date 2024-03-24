@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Mde.CampusDetector.Core.Alerts;
+using Mde.CampusDetector.Core.AppPermissions;
 using Mde.CampusDetector.Core.Campuses.Services;
 using Mde.CampusDetector.ViewModels;
 using Mde.CampusDetector.Views;
@@ -33,6 +34,7 @@ namespace Mde.CampusDetector
 
             builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddTransient<IGeolocation>((provider) => Geolocation.Default);
+            builder.Services.AddSingleton<IHandlePermissions, PermissionsHandler>();
 
             return builder.Build();
         }
