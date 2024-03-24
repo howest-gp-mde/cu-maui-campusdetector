@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using Mde.CampusDetector.Core.Alerts;
 using Mde.CampusDetector.Core.Campuses.Services;
 using Mde.CampusDetector.ViewModels;
 using Mde.CampusDetector.Views;
@@ -29,6 +30,8 @@ namespace Mde.CampusDetector
 
             builder.Services.AddSingleton<HttpClient>();
             builder.Services.AddTransient<ICampusService, CampusService>();
+
+            builder.Services.AddSingleton<IDialogService, DialogService>();
 
             return builder.Build();
         }
