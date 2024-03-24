@@ -86,5 +86,40 @@ namespace Mde.CampusDetector.UnitTests
             Assert.True(isLoading);
         }
 
+
+        [Theory]
+        [InlineData(PermissionStatus.Limited)]
+        [InlineData(PermissionStatus.Denied)]
+        [InlineData(PermissionStatus.Disabled)]
+        [InlineData(PermissionStatus.Restricted)]
+        public void AppearingCommand_NoLocationPermission_DisplayAlert(PermissionStatus notAllowedStatus)
+        {
+            // Arrange
+            var viewModel = new MainViewModel(_mockCampusService.Object,
+                                              _mockDialogService.Object,
+                                              _mockGeoLocation.Object,
+                                              _mockPermissionsHandler.Object);
+
+            _mockPermissionsHandler.Setup(mock => mock
+                    .CheckAsync<Permissions.LocationWhenInUse>())
+                    .ReturnsAsync(notAllowedStatus);
+
+            _mockPermissionsHandler.Setup(mock => mock
+                    .RequestAsync<Permissions.LocationWhenInUse>())
+                    .ReturnsAsync(notAllowedStatus);
+
+            _mockPermissionsHandler.Setup(mock => mock
+                    .RequestIfNotGrantedAsync<Permissions.LocationWhenInUse>())
+                    .ReturnsAsync(notAllowedStatus);
+
+            //act   
+            viewModel.AppearingCommand.Execute(null);
+
+            // assert
+            _mockDialogService.Verify(mock => mock.ShowAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+                                      Times.Once);
+        }
+
+
     }
 }
