@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Mde.CampusDetector.Core.Alerts;
 using Mde.CampusDetector.Core.AppPermissions;
 using Mde.CampusDetector.Core.Campuses;
