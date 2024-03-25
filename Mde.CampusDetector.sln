@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mde.CampusDetector", "src\M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mde.CampusDetector.UnitTests", "tests\Mde.CampusDetector.UnitTests\Mde.CampusDetector.UnitTests.csproj", "{3336DBE9-9468-4FD8-B60A-15CD62106139}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mde.CampusDetector.EndToEndTests", "tests\Mde.CampusDetector.EndToEndTests\Mde.CampusDetector.EndToEndTests.csproj", "{781B86AD-E100-4712-8545-02A333F59D2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{3336DBE9-9468-4FD8-B60A-15CD62106139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3336DBE9-9468-4FD8-B60A-15CD62106139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3336DBE9-9468-4FD8-B60A-15CD62106139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{781B86AD-E100-4712-8545-02A333F59D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{781B86AD-E100-4712-8545-02A333F59D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{781B86AD-E100-4712-8545-02A333F59D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{781B86AD-E100-4712-8545-02A333F59D2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
