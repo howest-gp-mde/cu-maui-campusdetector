@@ -128,7 +128,6 @@ namespace Mde.CampusDetector.UnitTests
             var lastLocationMock = new Mock<Location>();
             double currentDistanceFromCampus = AppConstants.Ranges.CloseRange + 1;
 
-            var newLocation = new Location { Latitude = 0, Longitude = 0 };
             var campus = new Campus
             {
                 Name = "Test Campus",
@@ -136,7 +135,6 @@ namespace Mde.CampusDetector.UnitTests
                 Longitude = 0,
                 PhotoUrl = string.Empty
             };
-
 
             var viewModel = new MainViewModel(_mockCampusService.Object,
                                               _mockDialogService.Object,
