@@ -14,6 +14,3 @@ It primarily focuses on testing ViewModels, and how to mock
 - MAUI's cross-platform API's
 - Mocking platformspecific code
 
-## Branches
-
-**[feature/01-start](../../../tree/feature/01-start)**
