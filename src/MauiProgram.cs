@@ -15,7 +15,10 @@ namespace Mde.CampusDetector
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .UseMauiCommunityToolkit()
+                .UseMauiCommunityToolkit(options =>
+                {
+                    options.SetShouldEnableSnackbarOnWindows(true);
+                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -29,8 +32,7 @@ namespace Mde.CampusDetector
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
 
-            builder.Services.AddSingleton<HttpClient>();
-            builder.Services.AddTransient<ICampusService, CampusService>();
+            builder.Services.AddHttpClient<ICampusService, CampusService>();
 
             builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddTransient<IGeolocation>((provider) => Geolocation.Default);

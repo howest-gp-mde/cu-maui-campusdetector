@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Mde.CampusDetector.Core.Alerts;
 using Mde.CampusDetector.Core.AppPermissions;
 using Mde.CampusDetector.Core.Campuses;
@@ -27,6 +26,8 @@ namespace Mde.CampusDetector.ViewModels
             this.geolocation = geolocation;
             this.permissionsHandler = permissionsHandler;
 
+            this.campuses = new();
+
             AppearingCommand = new Command(OnAppearing);
             DisappearingCommand = new Command(OnDisappearing);
         }
@@ -34,7 +35,7 @@ namespace Mde.CampusDetector.ViewModels
         public Command AppearingCommand { get; }
         public Command DisappearingCommand { get; }
 
-        public Location LastLocation { get; set; }
+        public Location? LastLocation { get; set; }
 
         private bool isLoading;
         public bool IsLoading
@@ -47,8 +48,9 @@ namespace Mde.CampusDetector.ViewModels
 
         public bool IsCampusSelected => SelectedCampus != null;
 
-        private Campus selectedCampus;
-        public Campus SelectedCampus
+        private Campus? selectedCampus;
+
+        public Campus? SelectedCampus
         {
             get { return selectedCampus; }
             set
@@ -88,14 +90,14 @@ namespace Mde.CampusDetector.ViewModels
                 SelectedCampusDistance = LastLocation.CalculateDistance(
                         selectedCampus.Latitude, selectedCampus.Longitude, DistanceUnits.Kilometers);
 
-                if(selectedCampusDistance <= AppConstants.Ranges.CloseRange && lastDistance > AppConstants.Ranges.CloseRange)
+                if (selectedCampusDistance <= AppConstants.Ranges.CloseRange && lastDistance > AppConstants.Ranges.CloseRange)
                 {
-                    await dialogService.ShowToast(string.Format(YouAreCloseMessage, selectedCampus.Name));
+                    await dialogService.ShowToastAsync(string.Format(YouAreCloseMessage, selectedCampus.Name));
                 }
             }
         }
 
-        private void OnLocationChanged(object sender, GeolocationLocationChangedEventArgs e)
+        private void OnLocationChanged(object? sender, GeolocationLocationChangedEventArgs e)
         {
             LastLocation = e.Location;
             HandleLocation();
@@ -131,12 +133,12 @@ namespace Mde.CampusDetector.ViewModels
                 }
                 else
                 {
-                    await dialogService.ShowAlert(NoPermissionTitle, NoPermissionMessage, "I understand");
+                    await dialogService.ShowAlertAsync(NoPermissionTitle, NoPermissionMessage, "I understand");
                 }
             }
             catch (Exception ex)
             {
-                await dialogService.ShowAlert(ErrorTitle, ex.Message, "Ok");
+                await dialogService.ShowAlertAsync(ErrorTitle, ex.Message, "Ok");
             }
             finally
             {
