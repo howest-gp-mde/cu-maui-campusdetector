@@ -4,12 +4,12 @@ namespace Mde.CampusDetector.Core.Alerts
 {
     public class DialogService : IDialogService
     {
-        public Task ShowAlert(string title, string message, string cancel)
+        public Task ShowAlertAsync(string title, string message, string cancel)
         { 
-            return Application.Current.MainPage.DisplayAlert(title, message, cancel);
+            return Application.Current?.Windows[0].Page?.DisplayAlertAsync(title, message, cancel) ?? Task.CompletedTask;
         }
 
-        public Task ShowToast(string message)
+        public Task ShowToastAsync(string message)
         {
             return Toast.Make(message).Show();
         }

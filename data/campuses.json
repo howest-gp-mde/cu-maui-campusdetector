@@ -31,24 +31,18 @@
   },
   {
     "id": 6,
-    "coordinates": [ 51.21527308398315, 3.2211176788305527 ],
-    "description": "Campus Bruges Centre - Howest College",
-    "image": "howest-campus-brugge-centrum-college.jpg"
-  },
-  {
-    "id": 7,
     "coordinates": [ 50.82476862014296, 3.2496758555983147 ],
     "description": "Campus Kortrijk Weide - Building A",
     "image": "howest-campus-kortrijk-weide-a.jpg"
   },
   {
-    "id": 8,
+    "id": 7,
     "coordinates": [ 50.8242966293589, 3.2510930985916375 ],
     "description": "Campus Kortrijk Weide - The Penta",
     "image": "howest-campus-kortrijk-weide-thepenta.jpg"
   },
   {
-    "id": 9,
+    "id": 8,
     "coordinates": [ 50.82765756246007, 3.254443187436345 ],
     "description": "Campus Kortrijk Weide - The Level",
     "image": "howest-campus-kortrijk-weide-thelevel.jpg"

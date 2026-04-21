@@ -21,7 +21,7 @@
                         AutomationId="campusPicker"
                         Title="Select a campus"
                         ItemsSource="{Binding Campuses}"
-                        ItemDisplayBinding="{Binding Name }"
+                        ItemDisplayBinding="{Binding Name, TargetNullValue='No campus selected' }"
                         SelectedItem="{Binding SelectedCampus}">
                 </Picker>
 
@@ -36,7 +36,7 @@
                         <Shadow Brush="Black" Radius="20" Opacity="0.35" Offset="7,7" />
                     </Border.Shadow>
                     <VerticalStackLayout Spacing="30">
-                        <Label Text="{Binding SelectedCampus.Name}"
+                        <Label Text="{Binding SelectedCampus.Name, TargetNullValue='No campus selected', FallbackValue=''}"
                                MaxLines="2"
                                FontSize="28"
                                HorizontalTextAlignment="Center" />
