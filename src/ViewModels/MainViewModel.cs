@@ -19,6 +19,7 @@ namespace Mde.CampusDetector.ViewModels
         public MainViewModel(ICampusService campusService)
         {
             this.campusService = campusService;
+            this.campuses = new();
 
             AppearingCommand = new Command(OnAppearing);
             DisappearingCommand = new Command(OnDisappearing);
@@ -27,7 +28,7 @@ namespace Mde.CampusDetector.ViewModels
         public Command AppearingCommand { get; }
         public Command DisappearingCommand { get; }
 
-        public Location LastLocation { get; set; }
+        public Location? LastLocation { get; set; }
 
         private bool isLoading;
         public bool IsLoading
@@ -40,8 +41,9 @@ namespace Mde.CampusDetector.ViewModels
 
         public bool IsCampusSelected => SelectedCampus != null;
 
-        private Campus selectedCampus;
-        public Campus SelectedCampus
+        private Campus? selectedCampus;
+
+        public Campus? SelectedCampus
         {
             get { return selectedCampus; }
             set
@@ -88,7 +90,7 @@ namespace Mde.CampusDetector.ViewModels
             }
         }
 
-        private void OnLocationChanged(object sender, GeolocationLocationChangedEventArgs e)
+        private void OnLocationChanged(object? sender, GeolocationLocationChangedEventArgs e)
         {
             LastLocation = e.Location;
             HandleLocation();
@@ -127,12 +129,12 @@ namespace Mde.CampusDetector.ViewModels
                 }
                 if(!hasPermission)
                 {
-                    await Application.Current.MainPage.DisplayAlert(NoPermissionTitle, NoPermissionMessage, "I understand");
+                    await (Application.Current?.Windows[0].Page?.DisplayAlertAsync(NoPermissionTitle, NoPermissionMessage, "I understand") ?? Task.CompletedTask);
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ErrorTitle, ex.Message, "Ok");
+                await (Application.Current?.Windows[0].Page?.DisplayAlertAsync(ErrorTitle, ex.Message, "Ok") ?? Task.CompletedTask);
             }
             finally
             {
