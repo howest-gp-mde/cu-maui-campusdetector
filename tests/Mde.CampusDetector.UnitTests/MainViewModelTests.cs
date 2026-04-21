@@ -1,4 +1,4 @@
-using Mde.CampusDetector.Core.Alerts;
+﻿using Mde.CampusDetector.Core.Alerts;
 using Mde.CampusDetector.Core.AppPermissions;
 using Mde.CampusDetector.Core.Campuses;
 using Mde.CampusDetector.Core.Campuses.Models;
@@ -40,12 +40,12 @@ namespace Mde.CampusDetector.UnitTests
 
             //default setup of ShowAlert (unless unit test overrides)
             _mockDialogService.Setup(mock => mock
-                    .ShowToast(It.IsAny<string>()))
+                    .ShowToastAsync(It.IsAny<string>()))
                     .Returns(() => Task.CompletedTask);
 
             //default setup of ShowAlert (unless unit test overrides)
             _mockDialogService.Setup(mock => mock
-                    .ShowAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                    .ShowAlertAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                     .Returns(() => Task.CompletedTask);
         }
 
@@ -117,7 +117,7 @@ namespace Mde.CampusDetector.UnitTests
             viewModel.AppearingCommand.Execute(null);
 
             // assert
-            _mockDialogService.Verify(mock => mock.ShowAlert(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+            _mockDialogService.Verify(mock => mock.ShowAlertAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
                                       Times.Once);
         }
 
@@ -151,7 +151,7 @@ namespace Mde.CampusDetector.UnitTests
             viewModel.HandleLocation();
 
             // assert
-            _mockDialogService.Verify(mock => mock.ShowToast(expectedMessage), Times.Once);
+            _mockDialogService.Verify(mock => mock.ShowToastAsync(expectedMessage), Times.Once);
         }
 
 

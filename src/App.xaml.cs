@@ -1,5 +1,4 @@
-﻿using Mde.CampusDetector.Converters;
-using System;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Mde.CampusDetector
 {
@@ -8,8 +7,11 @@ namespace Mde.CampusDetector
         public App()
         {
             InitializeComponent();
+        }
 
-            MainPage = new AppShell();
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            return new Window(new AppShell());
         }
     }
 }

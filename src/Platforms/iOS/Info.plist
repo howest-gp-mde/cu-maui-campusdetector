@@ -28,7 +28,5 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app requires your location to calculate distance to campuses</string>
 </dict>
 </plist>
