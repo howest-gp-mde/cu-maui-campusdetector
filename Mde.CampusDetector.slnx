@@ -2,7 +2,5 @@
   <Project Path="src/Mde.CampusDetector.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
-  <Project Path="tests/Mde.CampusDetector.UnitTests/Mde.CampusDetector.UnitTests.csproj" Id="483260ea-e3da-4e65-9f1c-90ef857f2c03">
-    <Build Solution="Debug|*" Project="false" />
-  </Project>
+  <Project Path="tests/Mde.CampusDetector.UnitTests/Mde.CampusDetector.UnitTests.csproj" Id="483260ea-e3da-4e65-9f1c-90ef857f2c03" />
 </Solution>
